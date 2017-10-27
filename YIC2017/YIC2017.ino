@@ -1,34 +1,28 @@
 #include <dht.h>
-
 #include <LiquidCrystal.h>
-
-LiquidCrystal lcd(8,9,10,11,12,13);
-
-dht DHT;
-
-// Storing Data
 
 int humid;
 int temp;
 
+LiquidCrystal lcd(8, 9, 10, 11, 12, 13);
+
+dht DHT;
+
 #define DHT11_PIN 7
 
-void setup()
-{
-
-  lcd.begin(16,2);
-  
-  // Debug console
+void setup(){
+  lcd.begin(16, 2);
   Serial.begin(9600);
-
-  pinMode(4, OUTPUT);
-  
 }
 
 void loop()
 {
-  
-  int chk = DHT.read(DHT11_PIN);
+  int chk = DHT.read11(DHT11_PIN);
+  Serial.print("Temperature = ");
+  Serial.println(DHT.temperature);
+  Serial.print("Humidity = ");
+  Serial.println(DHT.humidity);
+
   lcd.setCursor(0,0); 
   lcd.print("Temp: ");
   lcd.print(DHT.temperature);
@@ -48,6 +42,5 @@ void loop()
   } else {
     digitalWrite (4, LOW);
   }
- 
+  
 }
-
